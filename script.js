@@ -9,14 +9,21 @@ function book(title, author, read) {
 }
 
 let book0 = new book("The Hobbit", "J.R.R Tolkien", true);
+let book1 = new book("Lord of the Rings", "J.R.R Tolkien", true);
 
-myLibrary = [book0];
+myLibrary = [book0, book1];
 
 const createBookDiv = function (book) {
     const bookDiv = document.createElement("div");
     bookDiv.classList.add("book");
     bookDiv.textContent = `${book.title} by ${book.author}`;
+    bookDiv.id = "book" + myLibrary.indexOf(book);
+
+    const removeBtn = document.createElement("button");
+    removeBtn.classList.add("remove-btn");
+
     bookContainer.appendChild(bookDiv);
+    bookDiv.appendChild(removeBtn);
 }
 
 const loadBooks = function() {
@@ -27,3 +34,6 @@ const loadBooks = function() {
 
 bookContainer.onload = loadBooks();
 
+function addBook() {
+    
+}
