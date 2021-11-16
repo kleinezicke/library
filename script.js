@@ -1,6 +1,7 @@
 let myLibrary = [];
 
 const bookContainer = document.querySelector("#book-container");
+const addBookBtn = document.getElementById("add-book");
 
 function book(title, author, read) {
     this.title = title;
@@ -35,6 +36,21 @@ const loadBooks = function() {
 
 bookContainer.onload = loadBooks();
 
+document.onload = addBookBtn.addEventListener("click", function(){
+    addBook();
+});
+
 function addBook() {
+
+    let read;
+    let title = document.getElementById("title").value;
+    let author = document.getElementById("author").value;
+    if (document.getElementById("read").value == "on")
+        read = true;
+    else
+        read = false;
+
+    myLibrary.push(new book(title, author, read));
+    createBookDiv(myLibrary[myLibrary.length-1])
     
 }
