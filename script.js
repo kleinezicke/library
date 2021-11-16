@@ -21,6 +21,7 @@ const createBookDiv = function (book) {
 
     const removeBtn = document.createElement("button");
     removeBtn.classList.add("remove-btn");
+    removeBtn.textContent = "X";
 
     bookContainer.appendChild(bookDiv);
     bookDiv.appendChild(removeBtn);
