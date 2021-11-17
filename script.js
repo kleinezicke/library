@@ -9,7 +9,7 @@ function book(title, author, read) {
     this.read = read;
 }
 
-let book0 = new book("The Hobbit", "J.R.R Tolkien", true);
+let book0 = new book("The Hobbit", "J.R.R Tolkien", false);
 
 myLibrary = [book0];
 
@@ -21,7 +21,14 @@ const createBookDiv = function (book) {
 
     const readBtn = document.createElement("button");
     readBtn.classList.add("read-btn");
+    readBtn.id = "read" + myLibrary.indexOf(book);
     readBtn.textContent = "Read";
+    if (book.read == true) {
+        readBtn.classList.add("read");
+    }
+    readBtn.addEventListener("click", function(){
+        changeRead(readBtn.id);
+    })
 
     const removeBtn = document.createElement("button");
     removeBtn.classList.add("remove-btn");
@@ -68,4 +75,18 @@ function removeBook(delId) {
     let parent = button.parentNode;
 
     bookContainer.removeChild(parent);
+}
+
+function changeRead(readId) {
+    let button = document.getElementById(readId);
+    let index = readId.slice(4);
+
+    if (myLibrary[index].read == false) {
+        myLibrary[index].read = true;
+        button.classList.add("read")
+    }
+    else {
+        myLibrary[index].read = false;
+        button.classList.remove("read");
+    }
 }
