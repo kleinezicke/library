@@ -60,7 +60,7 @@ function addBook() {
     let read;
     let title = document.getElementById("title").value;
     let author = document.getElementById("author").value;
-    if (document.getElementById("read").value == "on")
+    if (document.getElementById("read").checked == true)
         read = true;
     else
         read = false;
