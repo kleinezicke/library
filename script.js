@@ -66,6 +66,8 @@ function addBook() {
 
     myLibrary.push(new book(title, author, read));
     createBookDiv(myLibrary[myLibrary.length-1])
+
+    saveLibrary(myLibrary);
 }
 
 function removeBook(delId) {
@@ -75,6 +77,8 @@ function removeBook(delId) {
 
     bookContainer.removeChild(parent);
     myLibrary.splice(id, 1);
+
+    saveLibrary(myLibrary);
 }
 
 function changeRead(readId) {
@@ -89,6 +93,8 @@ function changeRead(readId) {
         myLibrary[index].read = false;
         button.classList.remove("read");
     }
+
+    storage.setItem(`read${index}`, myLibrary[index].read)
 }
 
 function saveLibrary(library) {
