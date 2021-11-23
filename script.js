@@ -1,4 +1,5 @@
 let myLibrary = [];
+const storage = localStorage;
 
 const bookContainer = document.querySelector("#book-container");
 const addBookBtn = document.getElementById("add-book");
@@ -10,8 +11,6 @@ function book(title, author, read) {
 }
 
 let book0 = new book("The Hobbit", "J.R.R Tolkien", false);
-
-myLibrary = [book0];
 
 const createBookDiv = function (book) {
     const bookDiv = document.createElement("div");
@@ -49,7 +48,7 @@ const loadBooks = function() {
     });
 }
 
-bookContainer.onload = loadBooks();
+bookContainer.onload = loadLibrary();
 
 document.onload = addBookBtn.addEventListener("click", function(){
     addBook();
@@ -67,14 +66,15 @@ function addBook() {
 
     myLibrary.push(new book(title, author, read));
     createBookDiv(myLibrary[myLibrary.length-1])
-    
 }
 
 function removeBook(delId) {
     let button = document.getElementById(delId)
     let parent = button.parentNode;
+    let id = delId.slice(3);
 
     bookContainer.removeChild(parent);
+    myLibrary.splice(id, 1);
 }
 
 function changeRead(readId) {
@@ -89,4 +89,31 @@ function changeRead(readId) {
         myLibrary[index].read = false;
         button.classList.remove("read");
     }
+}
+
+function saveLibrary(library) {
+
+    storage.clear()
+
+    library.forEach(element => {
+        let index = library.indexOf(element);
+        storage.setItem(`title${index}`, element.title);
+        storage.setItem(`author${index}`, element.author);
+        storage.setItem(`read${index}`, element.read);
+    });
+}
+
+function loadLibrary() {
+
+    for(i = 0, l = storage.length / 3; i < l; i++) {
+        let author = storage.getItem(`author${i}`);
+        let title = storage.getItem(`title${i}`);
+        let read = storage.getItem(`read${i}`);
+
+        myLibrary.push(new book(title, author, read));
+    }
+
+    myLibrary.forEach(element => {
+        createBookDiv(element);
+    })
 }
